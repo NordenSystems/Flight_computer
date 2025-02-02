@@ -10,7 +10,7 @@ class ComplementaryFilter:
         self.max_angular_velocity = 100 # Threshold for fast angular velocities
         self.min_angular_velocity = 10  # Threshold for low angular velocities
 
-    def update(self, accel, gyro):
+    def update(self, accel, gyro, mag):
         # Calculate the total angular velocity (sum of all axes)
         angular_velocity = abs(gyro.roll) + abs(gyro.pitch) + abs(gyro.yaw)
 
@@ -33,6 +33,6 @@ class ComplementaryFilter:
         self.pitch = gyro_weight * gyro.pitch + accelerometer_weight * accel.pitch
         
         # Yaw remains from the gyro since accelerometer cannot estimate yaw
-        self.yaw = gyro.yaw
+        self.yaw = mag.yaw
         
         return {}
